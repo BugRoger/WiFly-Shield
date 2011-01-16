@@ -148,9 +148,7 @@ boolean WiFlyDevice::enterCommandMode(boolean isAfterBoot) {
     // This is used to determine whether command mode has been entered
     // successfully.
     // TODO: Find alternate approach or only use this method after a (re)boot?
-    uart.println("ver");
-
-    if (findInResponse("\r\nWiFly Ver", 1000)) {
+    if (sendCommand("ver", false, "\r\nWiFly Ver", 1000)) {
       // TODO: Flush or leave remainder of output?
       return true;
     }
@@ -235,14 +233,12 @@ boolean WiFlyDevice::softwareReboot(boolean isAfterBoot) {
       return false; // If the included retries have failed we give up
     }
 
-    uart.println("reboot");
-
     // For some reason the full "*Reboot*" message doesn't always
     // seem to be received so we look for the later "*READY*" message instead.
 
     // TODO: Extract information from boot? e.g. version and MAC address
 
-    if (findInResponse("*READY*", 2000)) {
+    if (sendCommand("reboot", false, "*READY*", 2000)) {
       return true;
     }
   }
