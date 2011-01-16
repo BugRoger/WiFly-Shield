@@ -12,8 +12,7 @@ boolean WiFlyDevice::findInResponse(const char *toMatch,
 
    */
 
-  // TODO: Change 'sendCommand' to use 'findInResponse' and have timeouts,
-  //       and then use 'sendCommand' in routines that call 'findInResponse'?
+  // TODO: Use 'sendCommand' in routines that call 'findInResponse'?
 
   // TODO: Don't reset timer after successful character read? Or have two
   //       types of timeout?
@@ -284,7 +283,8 @@ void WiFlyDevice::reboot() {
 
 boolean WiFlyDevice::sendCommand(const char *command,
                                  boolean isMultipartCommand,
-                                 const char *expectedResponse) {
+                                 const char *expectedResponse,
+                                 unsigned int timeOut) {
   /*
    */
   DEBUG_LOG(1, "Entered sendCommand");
@@ -300,7 +300,7 @@ boolean WiFlyDevice::sendCommand(const char *command,
     // TODO: Handle other responses
     //       (e.g. autoconnect message before it's turned off,
     //        DHCP messages, and/or ERR etc)
-    waitForResponse(expectedResponse);
+    return findInResponse(expectedResponse, timeOut);
   }
 
   return true;

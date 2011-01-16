@@ -50,7 +50,8 @@ class WiFlyDevice {
     void setConfiguration();
     boolean sendCommand(const char *command,
                         boolean isMultipartCommand = false,
-                        const char *expectedResponse = "AOK");
+                        const char *expectedResponse = "AOK",
+                        unsigned int timeOut = 0);
     void waitForResponse(const char *toMatch);
     void skipRemainderOfResponse();
     boolean responseMatched(const char *toMatch);
