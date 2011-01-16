@@ -173,7 +173,7 @@ void Client::stop() {
   // error if the connection is no longer open.
 
   _WiFly.uart.println("exit"); // TODO: Fix this hack which is a workaround for the fact the closed connection isn't detected properly, it seems. Even with this there's a delay between reconnects needed.
-  _WiFly.waitForResponse("EXIT");
+  _WiFly.findInResponse("\nEXIT");
   _WiFly.skipRemainderOfResponse();
   // As a result of this, unwanted data gets sent to /dev/null rather than
   // confusing the WiFly which tries to interpret it as commands.

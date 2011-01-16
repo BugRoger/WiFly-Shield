@@ -403,8 +403,7 @@ boolean WiFlyDevice::join(const char *ssid) {
   // TODO: Handle connecting to Adhoc device
   if (sendCommand(ssid, false, "Associated!")) {
     // TODO: Extract information from complete response?
-    // TODO: Change this to still work when server mode not active
-    waitForResponse("Listen on ");
+    findInResponse("\nIF=UP");
     skipRemainderOfResponse();
     return true;
   }
