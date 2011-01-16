@@ -68,27 +68,6 @@ boolean WiFlyDevice::findInResponse(const char *toMatch,
 
 
 
-boolean WiFlyDevice::responseMatched(const char *toMatch) {
-  /*
-   */
-  boolean matchFound = true;
-
-  DEBUG_LOG(3, "Entered responseMatched");
-
-  for (unsigned int offset = 0; offset < strlen(toMatch); offset++) {
-    while (!uart.available()) {
-      // Wait -- no timeout
-    }
-    if (uart.read() != toMatch[offset]) {
-      matchFound = false;
-      break;
-    }
-  }
-  return matchFound;
-}
-
-
-
 #define COMMAND_MODE_ENTER_RETRY_ATTEMPTS 5
 
 #define COMMAND_MODE_GUARD_TIME 250 // in milliseconds
@@ -167,17 +146,6 @@ void WiFlyDevice::skipRemainderOfResponse() {
     while (!(uart.available() && (uart.read() == '\n'))) {
       // Skip remainder of response
     }
-}
-
-
-void WiFlyDevice::waitForResponse(const char *toMatch) {
-  /*
-   */
-
-   // Note: Never exits if the correct response is never found
-   while(!responseMatched(toMatch)) {
-     skipRemainderOfResponse();
-   }
 }
 
 

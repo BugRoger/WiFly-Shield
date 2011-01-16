@@ -52,9 +52,7 @@ class WiFlyDevice {
                         boolean isMultipartCommand = false,
                         const char *expectedResponse = "AOK",
                         unsigned int timeOut = 0);
-    void waitForResponse(const char *toMatch);
     void skipRemainderOfResponse();
-    boolean responseMatched(const char *toMatch);
 
     boolean findInResponse(const char *toMatch, unsigned int timeOut = 0);
     boolean enterCommandMode(boolean isAfterBoot = false);
