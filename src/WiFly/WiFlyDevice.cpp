@@ -7,7 +7,7 @@
 
 
 boolean WiFlyDevice::findInResponse(const char *toMatch,
-                                    unsigned int timeOut = 0) {
+                                    unsigned int timeOut) {
   /*
 
    */
@@ -219,7 +219,7 @@ void WiFlyDevice::begin() {
 
 #define SOFTWARE_REBOOT_RETRY_ATTEMPTS 5
 
-boolean WiFlyDevice::softwareReboot(boolean isAfterBoot = true) {
+boolean WiFlyDevice::softwareReboot(boolean isAfterBoot) {
   /*
 
    */
@@ -283,8 +283,8 @@ void WiFlyDevice::reboot() {
 
 
 boolean WiFlyDevice::sendCommand(const char *command,
-                                 boolean isMultipartCommand = false,
-                                 const char *expectedResponse = "AOK") {
+                                 boolean isMultipartCommand,
+                                 const char *expectedResponse) {
   /*
    */
   DEBUG_LOG(1, "Entered sendCommand");

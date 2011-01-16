@@ -49,15 +49,15 @@ class WiFlyDevice {
     void requireFlowControl();
     void setConfiguration();
     boolean sendCommand(const char *command,
-                        boolean isMultipartCommand, // Has default value
-                        const char *expectedResponse); // Has default value
+                        boolean isMultipartCommand = false,
+                        const char *expectedResponse = "AOK");
     void waitForResponse(const char *toMatch);
     void skipRemainderOfResponse();
     boolean responseMatched(const char *toMatch);
 
-    boolean findInResponse(const char *toMatch, unsigned int timeOut);
+    boolean findInResponse(const char *toMatch, unsigned int timeOut = 0);
     boolean enterCommandMode(boolean isAfterBoot = false);
-    boolean softwareReboot(boolean isAfterBoot);
+    boolean softwareReboot(boolean isAfterBoot = true);
     boolean hardwareReboot();
 
     friend class Client;
