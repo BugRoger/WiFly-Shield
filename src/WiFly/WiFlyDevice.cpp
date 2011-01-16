@@ -477,7 +477,7 @@ const char * WiFlyDevice::ip() {
 
   // This should skip the remainder of the output.
   // TODO: Handle this better?
-  waitForResponse("<");
+  findInResponse("\n<");
   while (uart.read() != ' ') {
     // Skip the prompt
   }
