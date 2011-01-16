@@ -39,7 +39,7 @@ Client& Server::available() {
   if (!activeClient) {
     // TODO: Handle this better
     if (WiFly.uart.available() >= strlen(TOKEN_MATCH_OPEN)) {
-      if (WiFly.responseMatched(TOKEN_MATCH_OPEN)) {
+      if (WiFly.findInResponse(TOKEN_MATCH_OPEN)) {
 	// The following values indicate that the connection was
 	// created when acting as a server.
 
