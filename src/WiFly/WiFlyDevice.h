@@ -10,9 +10,9 @@ class WiFlyDevice {
     WiFlyDevice(SpiUartDevice& theUart);
     void begin();
 
-    boolean join(const char *ssid);
+    boolean join(const char *ssid, unsigned int timeOut = 3000);
     boolean join(const char *ssid, const char *passphrase, 
-                 boolean isWPA = true);
+                 boolean isWPA = true, unsigned int timeOut = 3000);
 
     boolean configure(byte option, unsigned long value);
 

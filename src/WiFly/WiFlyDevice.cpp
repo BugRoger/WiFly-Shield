@@ -355,12 +355,11 @@ void WiFlyDevice::setConfiguration() {
 }
 
 
-boolean WiFlyDevice::join(const char *ssid) {
+boolean WiFlyDevice::join(const char *ssid, unsigned int timeOut) {
   /*
    */
   // TODO: Handle other authentication methods
   // TODO: Handle escaping spaces/$ in SSID
-  // TODO: Allow for timeout?
 
   // TODO: Do we want to set the passphrase/key to empty when they're
   //       not required? (Probably not necessary as I think module
@@ -369,9 +368,9 @@ boolean WiFlyDevice::join(const char *ssid) {
   sendCommand("join ", true);
   // TODO: Actually detect failure to associate
   // TODO: Handle connecting to Adhoc device
-  if (sendCommand(ssid, false, "Associated!")) {
+  if (sendCommand(ssid, false, "Associated!", timeOut)) {
     // TODO: Extract information from complete response?
-    findInResponse("\nIF=UP");
+    findInResponse("\nIF=UP", timeOut);
     skipRemainderOfResponse();
     return true;
   }
@@ -380,7 +379,7 @@ boolean WiFlyDevice::join(const char *ssid) {
 
 
 boolean WiFlyDevice::join(const char *ssid, const char *passphrase,
-                          boolean isWPA) {
+                          boolean isWPA, unsigned int timeOut) {
   /*
    */
   // TODO: Handle escaping spaces/$ in passphrase and SSID
@@ -396,7 +395,7 @@ boolean WiFlyDevice::join(const char *ssid, const char *passphrase,
 
   sendCommand(passphrase);
 
-  return join(ssid);
+  return join(ssid, timeOut);
 }
 
 
