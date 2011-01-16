@@ -323,6 +323,9 @@ void WiFlyDevice::requireFlowControl() {
   reboot();
 }
 
+
+#define SET_IP_LOCALPORT_BUFFER_SIZE 23 // len("set ip localport 65535") + 1
+
 void WiFlyDevice::setConfiguration() {
   /*
    */
@@ -336,10 +339,9 @@ void WiFlyDevice::setConfiguration() {
   //       with "set ip protocol <something>"
 
   // Set server port
-  sendCommand("set ip localport ", true);
-  // TODO: Handle numeric arguments correctly.
-  uart.print(serverPort);
-  sendCommand("");
+  char command[SET_IP_LOCALPORT_BUFFER_SIZE];
+  snprintf(command, SET_IP_LOCALPORT_BUFFER_SIZE, "set ip localport %lu", serverPort);
+  sendCommand(command);
 
   // Turn off remote connect message
   sendCommand("set comm remote 0");
@@ -458,6 +460,9 @@ const char * WiFlyDevice::ip() {
   return ip;
 }
 
+
+#define SET_UART_INSTANT_BUFFER_SIZE 24 // len("set uart instant 921600") + 1
+
 boolean WiFlyDevice::configure(byte option, unsigned long value) {
   /*
    */
@@ -468,8 +473,11 @@ boolean WiFlyDevice::configure(byte option, unsigned long value) {
     case WIFLY_BAUD:
       // TODO: Use more of standard command sending method?
       enterCommandMode();
-      uart.print("set uart instant ");
-      uart.println(value);
+
+      char command[SET_UART_INSTANT_BUFFER_SIZE];
+      snprintf(command, SET_UART_INSTANT_BUFFER_SIZE, "set uart instant %lu", value);
+      sendCommand(command);
+
       delay(10); // If we don't have this here when we specify the
                  // baud as a number rather than a string it seems to
                  // fail. TODO: Find out why.
