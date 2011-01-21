@@ -77,7 +77,7 @@ boolean Client::connect() {
     // TODO: Track state more?
     _WiFly.enterCommandMode();
     
-    _WiFly.sendCommand("open ", true, "" /* TODO: Remove this dummy value */);
+    _WiFly.sendCommand("open ", true);
     
     if (_ip != NULL) {
       for (int index = 0; /* break inside loop*/ ; index++) {
