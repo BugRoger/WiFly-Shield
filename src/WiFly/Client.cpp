@@ -57,7 +57,7 @@ void Client::write(const uint8_t *buffer, size_t size) {
 }
 
 
-boolean Client::connect() {
+boolean Client::connect(unsigned int timeout) {
   /*
    */
 
@@ -99,7 +99,7 @@ boolean Client::connect() {
     
     _WiFly.uart.print(_port, DEC);
     
-    _WiFly.sendCommand("", false, "*OPEN*");
+    _WiFly.sendCommand("", false, "*OPEN*", timeout);
     
     // TODO: Handle connect failure
   }

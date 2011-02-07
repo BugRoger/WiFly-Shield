@@ -16,7 +16,7 @@ class Client : public Print {
   Client(uint8_t *ip, uint16_t port);
   Client(const char* domain, uint16_t port);
 
-  boolean connect();
+  boolean connect(unsigned int timeout = 0);
 
   void write(byte value);
   void write(const char *str);
