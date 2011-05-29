@@ -367,6 +367,11 @@ boolean WiFlyDevice::join(const char *ssid, unsigned int timeOut) {
   //       not required? (Probably not necessary as I think module
   //       ignores them when they're not required.)
 
+  // Set the SSID and configure the auto join.
+  sendCommand("set wlan ssid ", true);
+  sendCommand(ssid, false);
+  sendCommand("set wlan join 1", false);
+
   sendCommand("join ", true);
   // TODO: Actually detect failure to associate
   // TODO: Handle connecting to Adhoc device
