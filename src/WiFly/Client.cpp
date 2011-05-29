@@ -99,7 +99,9 @@ boolean Client::connect(unsigned int timeout) {
     
     _WiFly.uart.print(_port, DEC);
     
-    _WiFly.sendCommand("", false, "*OPEN*", timeout);
+    if ( ! _WiFly.sendCommand("", false, "*OPEN*", timeout)) {
+      return false;
+    }
     
     // TODO: Handle connect failure
   }
